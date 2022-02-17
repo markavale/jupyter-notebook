@@ -1,0 +1,160 @@
+{
+    "article_title": null,
+    "article_source_url": "technocodex.com",
+    "article_authors": [],
+    "article_sections": [],
+    "article_publish_date": null,
+    "article_content": null,
+    "article_images": [],
+    "article_videos": [],
+    "article_media_type": "Web",
+    "article_ad_value": 0,
+    "article_pr_value": 0,
+    "article_language": null,
+    "article_status": "Error",
+    "article_error_status": "HTTP Error",
+    "article_source_from": "NodeJS Static Scraper",
+    "date_created": "2021-04-10T14:30:32.652Z",
+    "date_updated": "2021-04-10T06:41:15.378Z",
+    "created_by": "System",
+    "updated_by": "System",
+    "is_in_mysql": false,
+    "_id": "6071b688075af55270e7ed1b",
+    "website": {
+        "section_filter": {
+            "includes": [
+                "technocodex\\.com\/category\/"
+            ],
+            "excludes": [
+                "\/tags\/",
+                "\/tag\/",
+                "\/search\/",
+                "\/labels\/",
+                "\/label\/"
+            ]
+        },
+        "article_filter": {
+            "includes": [
+                "technocodex\\.com\/\\w+"
+            ],
+            "excludes": [
+                "\/tags\/",
+                "\/tag\/",
+                "\/search\/",
+                "\/labels\/",
+                "\/label\/",
+                "\/category\/",
+                "\/author\/",
+                "\/about\/$",
+                "\/contact\/$",
+                "\/privacy-policy\/$",
+                "\/terms-of-use\/$"
+            ]
+        },
+        "alexa_rankings": {
+            "global": 122570,
+            "local": 32343
+        },
+        "selectors": {
+            "title": [
+                {
+                    "selector": "element|class|id|pseudo-class|selector",
+                    "attribute": null,
+                    "ignore_tags": [],
+                    "replace": [],
+                    "_id": "5fa37b13f64f3718e19c8827"
+                }
+            ],
+            "publish": [
+                {
+                    "selector": "element|class|id|pseudo-class|selector",
+                    "attribute": null,
+                    "ignore_tags": [],
+                    "replace": [],
+                    "_id": "5fa37b13f64f3718e19c8826"
+                }
+            ],
+            "author": [
+                {
+                    "selector": "element|class|id|pseudo-class|selector",
+                    "attribute": null,
+                    "ignore_tags": [],
+                    "replace": [],
+                    "_id": "5fa37b13f64f3718e19c8825"
+                }
+            ],
+            "section": [
+                {
+                    "selector": "element|class|id|pseudo-class|selector",
+                    "attribute": null,
+                    "ignore_tags": [],
+                    "replace": [],
+                    "_id": "5fa37b13f64f3718e19c8824"
+                }
+            ],
+            "body": [
+                {
+                    "selector": "element|class|id|pseudo-class|selector",
+                    "attribute": null,
+                    "ignore_tags": [],
+                    "replace": [],
+                    "_id": "5fa37b13f64f3718e19c8823"
+                }
+            ],
+            "image": [
+                {
+                    "selector": "element|class|id|pseudo-class|selector",
+                    "attribute": null,
+                    "ignore_tags": [],
+                    "replace": [],
+                    "_id": "5fa37b13f64f3718e19c8822"
+                }
+            ],
+            "video": [
+                {
+                    "selector": "element|class|id|pseudo-class|selector",
+                    "attribute": null,
+                    "ignore_tags": [],
+                    "replace": [],
+                    "_id": "5fa37b13f64f3718e19c8821"
+                }
+            ]
+        },
+        "website_icon_url": "https://technocodex.com/wp-content/uploads/2020/03/cropped-logo-transparent-32x32.png",
+        "website_cost": 380,
+        "website_language": "English",
+        "website_category": "News",
+        "website_type": "INTERNATIONAL_NEWS",
+        "status": "ACTIVE",
+        "region": "Unknown",
+        "country": "India",
+        "country_code": "IND",
+        "needs_search_params": false,
+        "needs_https": false,
+        "needs_endslash": false,
+        "has_subsection": false,
+        "date_created": "2020-09-18T23:37:02.000Z",
+        "date_updated": "2021-03-28T19:56:10.404Z",
+        "programming_language": "Python Requests",
+        "request_source": "request",
+        "is_dynamic_website": false,
+        "is_using_selectors": false,
+        "is_using_snippets": true,
+        "code_snippet": "// this will be configure later\nclass Article {\n    constructor($wrapper, $string, $moment, $article_url){\n        this._cheerio = $wrapper;\n        this._string = $string;\n        this._moment = $moment;\n        this._url = $article_url;\n    }\n}\n \n//Dont modify this block\nArticle.prototype.ENTITY = function(){\n    return this._cheerio\n}\n \n//Dont modify this block\nArticle.prototype.STRING = function(){\n    return this._string\n}\n \n//Dont modify this block\nArticle.prototype.MOMENT = function(){\n    return this._moment\n}\n \n// You can modify this function\nArticle.prototype.ARTICLE_TITLE = async function(){\n    const $ = this.ENTITY()\n    const p = new Promise(async (resolve, reject) => {\n        try{\n            // insert your code here\n            let title\n            let selectors = [\n                {\n                    'selector'  :   '.single-post-title',\n                    'attribute' :   null\n                },\n                {\n                    'selector'  :   'meta[property=\"og:title\"]',\n                    'attribute' :   'content'\n                }\n            ]\n\n            let select = (selectors.length > 0) ? selectors.filter(v=>$(v.selector).length > 0) : reject('(Title) No selectors')\n            try{\n                let selector = select[0]\n                title = (selector.attribute) ? $(selector.selector).eq(0).attr(selector.attribute) : $(selector.selector).eq(0).text().trim()\n                // use code below to remove any trailing text from the title\n                // title = title.endsWith('sometext') ? title.replace('sometext', '') : title\n            }catch{\n                reject('(Title) No proper selectors')\n            }\n\n            if(!title){\n                 reject('Missing title.')\n            }else{\n                 resolve(title)\n            }\n        }catch(error){\n            reject(error)\n        }\n    })\n    return p\n}\n \nArticle.prototype.ARTICLE_PUBLISH = async function(){\n    const $ = this.ENTITY()\n    const textFromUrl = this._url\n    const p = new Promise(async (resolve, reject) => {\n        try{\n            // insert your code here\n            let date\n            let selectors = [\n                {\n                    'selector'  :   '.post-published.updated > b',\n                    'attribute' :   null\n                },\n                {\n                    'selector'  :   'meta[property=\"article:published_time\"]',\n                    'attribute' :   'content'\n                },\n                {\n                    'selector'  :   'script[type=\"application/ld+json\"]:contains(\"datePublished\")',\n                    'attribute' :   null\n                }\n            ]\n            \n            if(selectors.length > 0){\n                let select = selectors.filter(v=>$(v.selector).length > 0)\n                try{\n                    let selector = select[0]\n                    if(selector.selector.startsWith('script')){\n                        date = $(selector.selector).html()\n                        date = date.includes('datePublished\\\":\\\"') ? date.split('datePublished\\\":\\\"')[1] : date.split('datePublished\\\": \\\"')[1]\n                        date = date.split('\\\"')[0]\n                    }else{\n                        date = (selector.attribute) ? $(selector.selector).eq(0).attr(selector.attribute) : $(selector.selector).eq(0).text().trim()\n                    }\n                }catch{\n                    date = new Date()\n                }\n            }else{\n                date = new Date()\n            }\n            \n            // uncomment this code if date can only be found in URL\n            // date = textFromUrl.split('/')\n            // url has this format domain/2020/09/10/sometext\n            // date = date[3] + '/' + date[4] + '/' + date[5]\n            // url has this format domain/2020/09/sometext\n            // date = date[3] + '/' + date[4] + '/01'\n\n            if(!date){\n                  reject('Missing date.')\n            }else{\n                  resolve(new Date(date))\n            }\n        }catch(error){\n            reject(error)\n        }\n    })\n    return p\n}\n \nArticle.prototype.ARTICLE_AUTHOR = async function(){\n    const $ = this.ENTITY()\n    const p = new Promise(async (resolve, reject) => {\n        try{\n            // insert your code here, author is array value\n            let authors = []\n            let selectors = [\n                {\n                    'selector'  :   '.post-author-name > b',\n                    'attribute' :   null\n                }\n            ]\n\n            if(selectors.length > 0){\n                let select = selectors.filter(v=>$(v.selector).length > 0)\n                try{\n                    let selector = select[0]\n                    if(selector.attribute){\n                        authors.push($(selector.selector).eq(0).attr(selector.attribute))\n                    }else{\n                        $(selector.selector).map(function(){\n                            authors.push($(this).text().trim())\n                        }).get().filter(v=>v)\n                    }\n                }catch{\n                    authors = ['No - Author']\n                }\n            }\n            \n            // filter out authors names without space\n            authors = authors.filter(v=>v.includes(' '))\n\n            // uncomment below to remove preceeding text such as 'by '\n            // authors = authors.map((aut) => {\n            //     return aut.startsWith('by ') ? aut.replace('by ', '') : aut\n            // })\n            \n            // uncomment code below to ignore single or multiple authors\n            // authors = authors.map(function(aut){\n            //     return aut.includes('authortoignore1') ? '' : aut\n            // })\n            \n            authors = authors.filter(v=>v)\n\n            let _uniqAuthors = (authors.length > 0) ? Array.from(new Set(authors)) : ['No - Author']\n            resolve(_uniqAuthors)\n        }catch(error){\n            reject(error)\n        }\n    })\n    return p\n}\n \nArticle.prototype.ARTICLE_SECTION = async function(){\n    const $ = this.ENTITY()\n    const p = new Promise(async (resolve, reject) => {\n        try{\n            // insert your code here, section is array value\n            let sections = []\n            let selectors = [\n                {\n                    'selector'  :   '.bf-breadcrumb-items > li:nth-last-of-type(2) > a > span',\n                    'attribute' :   null\n                }\n            ]\n\n            if(selectors.length > 0){\n                let select = selectors.filter(v=>$(v.selector).length > 0)\n                try{\n                    selector = select[0]\n                    let _sections = (selector.attribute) ? $(selector.selector).eq(0).attr(selector.attribute) : $(selector.selector).text().trim()\n                    sections.push(_sections)\n                }catch{\n                    sections = ['News']\n                }\n            }\n\n            let _uniqSections = (sections.length > 0) ? Array.from(new Set(sections)) : [\"News\"]\n            resolve(_uniqSections)\n        }catch(error){\n            reject(error)\n        }\n    })\n    return p\n}\n \nArticle.prototype.ARTICLE_HTML = async function(){\n    const $ = this.ENTITY()\n    const p = new Promise(async (resolve, reject) => {\n        try{\n            // insert your code here\n            let ignoreTags = []\n            ignoreTags.map(v=>$(v).remove())\n            let selector = ''\n            let html = $(selector).map(function(){\n                     return $(this)\n            }).get().join('')\n            resolve(html)\n        }catch(error){\n            reject(error)\n        }\n    })\n    return p\n}\n \nArticle.prototype.ARTICLE_TEXT = async function(){\n    const $ = this.ENTITY()\n    const textFromTitle = await this.ARTICLE_TITLE()\n    const p = new Promise(async (resolve, reject) => {\n        try{\n            // insert your code here\n            let ignoreTags = []\n            ignoreTags.map(v=>$(v).remove())\n            let selectors = [\n                {\n                    'selector'  :   '.continue-reading-content',\n                    'attribute' :   null\n                }\n            ]\n            let select = selectors.filter(v=>$(v.selector).length > 0)\n            let selector = select[0]\n            let text = (selector) ? $(selector.selector).map(function(){\n                return $(this).eq(0).text().replace(/(<([^>]+)>)/ig, '').trim()\n            }).get().join(' ') : ''\n\n            let textContent = (text.length > 0) ? text : textFromTitle\n            if(!textContent){\n                 reject('Missing text.')\n            }else{\n                 resolve(textContent)\n            }\n        }catch(error){\n            reject(error)\n        }\n    })\n    return p\n}\n \nArticle.prototype.ARTICLE_IMAGE = async function(){\n    const $ = this.ENTITY()\n    const p = new Promise(async (resolve, reject) => {\n        try{\n            let images = []\n            let selectors = [\n                {\n                    'selector'  :   '.single-featured img',\n                    'attribute' :   'data-src'\n                }\n            ]\n            \n            let select = selectors.filter(v=>$(v.selector).length > 0)\n            for(var i=0; i<select.length; i++){\n                let _image = $(select[i].selector).map(function(){\n                    images.push($(this).attr(select[i].attribute))\n                }).get().filter(v=>v)\n            }\n            \n            // use code below to remove unnecessary broken links\n            // images = images.filter(v=>v.startsWith('http'))\n\n            // use code below to add domain to the link\n            // images = images.map((img) => {\n            //     return img.startsWith('http') ? img : 'domain' + img\n            // })\n\n            let _uniqImages = (images.length > 0) ? Array.from(new Set(images)) : []\n            resolve(_uniqImages)\n        }catch(error){\n            reject(error)\n        }\n    })\n    return p\n}\n \nArticle.prototype.ARTICLE_VIDEO = async function(){\n    const $ = this.ENTITY()\n    const p = new Promise(async (resolve, reject) => {\n        try{\n            // insert your code here, video is array value\n            let selector = '.continue-reading-content iframe'\n            let video_attribute = 'src'\n            let videos = $(selector).map(function(){\n                   return $(this).attr(video_attribute)\n            }).get().filter(v=>v)\n            let _uniqVideos = (videos.length > 0) ? Array.from(new Set(videos)) : []\n            resolve(_uniqVideos)\n        }catch(error){\n            reject(error)\n        }\n    })\n    return p\n}\n \n \nreturn Article;",
+        "created_by": "System",
+        "updated_by": "Mark Anthony Junio",
+        "website_scraper_delay": 500,
+        "is_aggregator": false,
+        "is_to_be_scraped": false,
+        "verified": true,
+        "is_using_proxy": false,
+        "_id": "5f64d393aed0de0fde3ebb23",
+        "website_name": "Technocodex",
+        "fqdn": "technocodex.com",
+        "website_url": "http://technocodex.com",
+        "__v": 0
+    },
+    "section": "5fa38727dd964f4b7f3f7d53",
+    "article_url": "https://technocodex.com/man-held-for-breaking-into-shawn-mendes-camila-cabellos-house-stealing-car",
+    "__v": 0
+},

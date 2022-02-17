@@ -1,0 +1,47 @@
+{
+  "data": [
+    {
+      "_id": "6099d69941842b5c2e734012",
+      "article_source_from": "Google News Link",
+      "article_source_url": "komu.com",
+      "article_url": "https://philstarlife.com/self/625772-insular-life-lazada-moms",
+      "created_by": "Global Link",
+      "date_created": "2021-05-11T00:58:01.912Z",
+      "website": {
+        "__v": 0,
+        "_id": "5f566e12e87a173d70e7bda7",
+        "alexa_rankings": { "global": 256570, "local": 54887 },
+        "country": "United States",
+        "country_code": "USA",
+        "created_by": "System",
+        "date_created": "2020-09-08T01:32:02.000Z",
+        "date_updated": "2021-03-28T19:56:12.355Z",
+        "fqdn": "komu.com",
+        "has_subsection": false,
+        "is_aggregator": false,
+        "is_dynamic_website": false,
+        "is_to_be_scraped": false,
+        "is_using_proxy": false,
+        "is_using_selectors": false,
+        "is_using_snippets": false,
+        "needs_endslash": false,
+        "needs_https": false,
+        "needs_search_params": false,
+        "programming_language": "Python",
+        "region": "Unknown",
+        "request_source": "request",
+        "status": "INACTIVE",
+        "updated_by": "Mark Anthony Junio",
+        "verified": true,
+        "website_category": "News",
+        "website_cost": 400,
+        "website_icon_url": "http://www.komu.com/favicon.ico",
+        "website_language": "English",
+        "website_name": "Komu",
+        "website_scraper_delay": 500,
+        "website_type": "INTERNATIONAL_NEWS",
+        "website_url": "http://www.komu.com"
+      }
+    }
+  ]
+}
